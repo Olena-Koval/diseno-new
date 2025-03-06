@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Importar Router y las rutas
-
 import { useState } from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Card } from 'react-bootstrap';  // Importar los componentes de React Bootstrap
+import { Link, useParams } from 'react-router-dom';  // Para usar Link y useParams de React Router
+import 'bootstrap/dist/css/bootstrap.min.css';  // Importar CSS de Bootstrap
 
 function App() {
   const [students, setStudents] = useState([
@@ -29,19 +29,21 @@ function App() {
   );
 }
 
-// Componente principal de la página
+// Componente principal de la página (Home)
 const Home = ({ students }) => (
   <div className="row">
     {students.map((student) => (
       <div key={student.id} className="col-12 col-md-4 mb-4">
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">{student.name}</h5>
-            <p className="card-text">Nota: {student.grade}</p>
-            {/* Enlace a la página de detalles */}
-            <Link to={`/detalles/${student.id}`} className="btn btn-primary">Ver Detalles</Link>
-          </div>
-        </div>
+        <Card>  {/* Usamos el componente Card de React Bootstrap */}
+          <Card.Body>
+            <Card.Title>{student.name}</Card.Title>  {/* Nombre del estudiante */}
+            <Card.Text>Nota: {student.grade}</Card.Text>  {/* Nota del estudiante */}
+            {/* Usamos el componente Button de React Bootstrap */}
+            <Button as={Link} to={`/detalles/${student.id}`} variant="primary">
+              Ver Detalles
+            </Button>
+          </Card.Body>
+        </Card>
       </div>
     ))}
   </div>
@@ -65,4 +67,3 @@ const Detalles = ({ students }) => {
 };
 
 export default App;
-
